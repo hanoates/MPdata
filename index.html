@@ -1,61 +1,45 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2299.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <title>MP Lookup</title>
+    <script>
+        function fetchMPInfo() {
+            var postcode = document.getElementById("postcode").value;
+            var resultDiv = document.getElementById("result");
+
+            google.script.run.withSuccessHandler(displayMPInfo).getMPInfo(postcode);
+        }
+
+        function displayMPInfo(mpData) {
+            var resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = "";
+
+            if (mpData === "Postcode not found") {
+                resultDiv.innerHTML = "Postcode not found.";
+            } else {
+                for (var i = 0; i < mpData.length; i++) {
+                    var mp = mpData[i][0];
+                    resultDiv.innerHTML += "<h2>MP " + (i + 1) + ":</h2>";
+                    resultDiv.innerHTML += "<p>District: " + mp[0] + "</p>";
+                    resultDiv.innerHTML += "<p>Name: " + mp[1] + "</p>";
+                    resultDiv.innerHTML += "<p>Phone number: " + mp[2] + "</p>";
+                    resultDiv.innerHTML += "<p>Email: " + mp[3] + "</p>";
+                    resultDiv.innerHTML += "<p>Address: " + mp[4] + "</p>";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;MP Lookup&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function fetchMPInfo() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var postcode = document.getElementById("postcode").value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var resultDiv = document.getElementById("result");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>google.script.run.withSuccessHandler(displayMPInfo).getMPInfo(postcode);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function displayMPInfo(mpData) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var resultDiv = document.getElementById("result");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>resultDiv.innerHTML = "";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (mpData === "Postcode not found") {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>resultDiv.innerHTML = "Postcode not found.";</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (var i = 0; i &lt; mpData.length; i++) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>var mp = mpData[i][0];</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;h2&gt;MP " + (i + 1) + ":&lt;/h2&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;p&gt;District: " + mp[0] + "&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;p&gt;Name: " + mp[1] + "&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;p&gt;Phone number: " + mp[2] + "&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;p&gt;Email: " + mp[3] + "&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>resultDiv.innerHTML += "&lt;p&gt;Address: " + mp[4] + "&lt;/p&gt;";</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;MP Lookup&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Enter your postcode to find your MP's information:&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="postcode"&gt;Postcode: &lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="text" name="postcode" id="postcode" required&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="button" value="Submit" onclick="fetchMPInfo()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="result"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Replace with your Google Apps Script deployment URL --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://script.google.com/macros/s/AKfycbzd45lG9rNvAzCDMIdEBBjtdJvcMCZvTQ-mSn1fR6-euJ6GhG9HDVxH_wANq-lp1bBb/exec"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <h1>MP Lookup</h1>
+    <p>Enter your postcode to find your MP's information:</p>
+    <form>
+        <label for="postcode">Postcode: </label>
+        <input type="text" name="postcode" id="postcode" required>
+        <input type="button" value="Submit" onclick="fetchMPInfo()">
+    </form>
+    <div id="result"></div>
+    <!-- Replace with your Google Apps Script deployment URL -->
+    <script src="https://script.google.com/macros/s/AKfycbzd45lG9rNvAzCDMIdEBBjtdJvcMCZvTQ-mSn1fR6-euJ6GhG9HDVxH_wANq-lp1bBb/exec"></script>
 </body>
 </html>
